@@ -2,7 +2,12 @@
 
 namespace RuLong\Socket;
 
+use App\Workerman\Events;
+use GatewayWorker\BusinessWorker;
+use GatewayWorker\Gateway;
+use GatewayWorker\Register;
 use Illuminate\Console\Command;
+use Workerman\Worker;
 
 class Commands extends Command
 {
@@ -13,40 +18,24 @@ class Commands extends Command
     public function handle()
     {
         global $argv;
+
         $action = $this->argument('action');
 
+        if (!in_array($action, ['start', 'stop', 'restart', 'reload', 'status', 'connections'])) {
+            return 'Error';
+        }
         $argv[1] = $action;
         $argv[2] = $this->option('d') ? '-d' : '';
 
-        switch ($arg) {
-            case 'start':
-                $this->start();
-                break;
-            case 'stop':
-                $this->stop();
-                break;
-            case 'restart':
-                break;
-            case 'reload':
-                break;
-            case 'status':
-                break;
-            case 'connections':
-                break;
-        }
+        $this->startServer();
     }
 
-    protected function start()
+    protected function startServer()
     {
         $this->startGateWay();
         $this->startBusinessWorker();
         $this->startRegister();
         Worker::runAll();
-    }
-
-    protected function stop()
-    {
-
     }
 
     private function startBusinessWorker()

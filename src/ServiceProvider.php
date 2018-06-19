@@ -13,10 +13,8 @@ class ServiceProvider extends LaravelServiceProvider
 
     public function boot()
     {
-        $this->commands($this->commands);
-
         if ($this->app->runningInConsole()) {
-
+            $this->commands($this->commands);
         }
     }
 
