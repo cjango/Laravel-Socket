@@ -1,6 +1,6 @@
 <?php
 
-namespace RuLong\Panel;
+namespace RuLong\Socket;
 
 use Illuminate\Console\Command;
 
