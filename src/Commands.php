@@ -23,6 +23,7 @@ class Commands extends Command
                 $this->start();
                 break;
             case 'stop':
+                $this->stop();
                 break;
             case 'restart':
                 break;
@@ -35,12 +36,17 @@ class Commands extends Command
         }
     }
 
-    private function start()
+    protected function start()
     {
         $this->startGateWay();
         $this->startBusinessWorker();
         $this->startRegister();
         Worker::runAll();
+    }
+
+    protected function stop()
+    {
+
     }
 
     private function startBusinessWorker()
