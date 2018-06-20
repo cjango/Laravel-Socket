@@ -8,7 +8,6 @@
             "email": "chenjxlg@163.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.1.3",
         "workerman/gateway-worker": "^3.0"
