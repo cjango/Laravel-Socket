@@ -12,8 +12,6 @@ $ composer require "rulong/laravel-socket:~0.1.0"
 $ php artisan vendor:publish --provider=" RuLong\Socket\ServiceProvider"
 ```
 
-RuLong\Socket\ServiceProvider
-
 ## 3.启动
 --d 为deamon模式
 ```
