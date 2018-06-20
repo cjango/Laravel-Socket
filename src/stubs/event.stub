@@ -2,6 +2,8 @@
 
 namespace App\Workerman;
 
+use GatewayWorker\Lib\Gateway;
+
 class Events
 {
 
@@ -15,11 +17,30 @@ class Events
 
     public static function onWebSocketConnect($client_id, $data)
     {
-
     }
 
     public static function onMessage($client_id, $message)
     {
+        $receive = json_decode($message);
+        if (empty($receive)) {
+            return false;
+        }
+
+        if (isset($receive->type)) {
+            $type == trim($receive->type, '@');
+        } else {
+            return false;
+        }
+
+        switch ($type) {
+            case 'heart':
+                Gateway::sendToClient($client_id, '{"type":"@heart@"}');
+                break;
+            default:
+                # code...
+                break;
+        }
+
     }
 
     public static function onClose($client_id)

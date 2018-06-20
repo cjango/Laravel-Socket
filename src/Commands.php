@@ -17,25 +17,22 @@ class Commands extends Command
 
     public function handle()
     {
-        $this->checkEventFile();
-
         $this->info('Welcome use Workerman server');
 
         global $argv;
-
         $action = $this->argument('action');
-
         if (!in_array($action, ['start', 'stop', 'restart', 'reload', 'status', 'connections'])) {
-            echo "Error";
+            $this->error('Action not allow');
             return;
         }
+        $this->checkEventFile();
         $argv[1] = $action;
         $argv[2] = $this->option('d') ? '-d' : '';
 
-        $this->startServer();
+        $this->server();
     }
 
-    protected function startServer()
+    protected function server()
     {
         $this->startGateWay();
         $this->startBusinessWorker();
