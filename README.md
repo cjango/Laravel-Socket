@@ -3,7 +3,7 @@
 
 ## 1.安装
 ```
-$ composer require  "rulong/laravel-socket:~0.0.5"
+$ composer require  "rulong/laravel-socket:~0.1.0"
 ```
 
 ## 2.启动

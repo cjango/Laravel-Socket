@@ -2,48 +2,73 @@
 
 namespace App\Workerman;
 
-use GatewayWorker\Lib\Gateway;
+use GatewayWorker\BusinessWorker;
 
 class Events
 {
 
-    public static function onWorkerStart($businessWorker)
+    /**
+     * 服务启动
+     * @Author:<C.Jason>
+     * @Date:2018-06-20T12:47:12+0800
+     * @param BusinessWorker $businessWorker
+     */
+    public static function onWorkerStart(BusinessWorker $businessWorker)
     {
     }
 
-    public static function onConnect($client_id)
+    /**
+     * 客户端连接
+     * @Author:<C.Jason>
+     * @Date:2018-06-20T12:47:34+0800
+     * @param string $client_id [description]
+     */
+    public static function onConnect(string $client_id)
     {
     }
 
-    public static function onWebSocketConnect($client_id, $data)
-    {
-    }
-
-    public static function onMessage($client_id, $message)
+    /**
+     * 收到消息时候的响应
+     * @Author:<C.Jason>
+     * @Date:2018-06-20T12:46:24+0800
+     * @param string $client_id 客户端ID
+     * @param string $message   客户端消息内容
+     */
+    public static function onMessage(string $client_id, string $message)
     {
         $receive = json_decode($message);
         if (empty($receive)) {
-            return false;
+            return;
+        } elseif (!isset($receive->type)) {
+            return;
         }
 
-        if (isset($receive->type)) {
-            $type == trim($receive->type, '@');
-        } else {
-            return false;
-        }
-
-        switch ($type) {
+        switch (trim($receive->type, '@')) {
             case 'heart':
-                Gateway::sendToClient($client_id, '{"type":"@heart@"}');
+                return;
                 break;
             default:
-                # code...
                 break;
         }
-
     }
 
-    public static function onClose($client_id)
+    /**
+     * 客户端断开连接
+     * @Author:<C.Jason>
+     * @Date:2018-06-20T12:48:26+0800
+     * @param string $client_id [description]
+     */
+    public static function onClose(string $client_id)
+    {
+    }
+
+    /**
+     * 服务器停止
+     * @Author:<C.Jason>
+     * @Date:2018-06-20T12:51:51+0800
+     * @param BusinessWorker $businessWorker
+     */
+    public static function onWorkerStop(BusinessWorker $businessWorker)
     {
     }
 }

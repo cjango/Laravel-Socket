@@ -15,11 +15,12 @@ class ServiceProvider extends LaravelServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands($this->commands);
+            $this->publishes([__DIR__ . '/config.php' => config_path('workerman.php')]);
         }
     }
 
     public function register()
     {
-
+        $this->mergeConfigFrom(__DIR__ . 'config.php', 'workerman');
     }
 }
